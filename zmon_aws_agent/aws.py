@@ -721,15 +721,6 @@ def get_account_alias(region):
         return None
 
 
-def get_account_id(region):
-    try:
-        iam_client = boto3.client('iam', region_name=region)
-        role = iam_client.list_roles()['Roles'][0]
-        return role['Arn'].split(':')[4]
-    except:
-        return None
-
-
 def get_apps_from_entities(instances, account, region):
     applications = [{
         'id': entity_id('a-{}[{}:{}]'.format(a['application_id'], account, region)),

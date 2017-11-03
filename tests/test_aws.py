@@ -63,32 +63,6 @@ def test_aws_get_account_alias(monkeypatch, result):
     boto.assert_called_with('iam', region_name=REGION)
 
 
-@pytest.mark.parametrize(
-    'result', [{'Roles': [{'Arn': 'arn:iam:aws::12:eu'}, {'Arn': 'arn:iam:aws::12:eu'}]}, RuntimeError]
-)
-def test_aws_get_account_id(monkeypatch, result):
-    fail = True
-    if type(result) is dict:
-        fail = False
-
-    iam_client = MagicMock()
-    if fail:
-        iam_client.list_roles.side_effect = result
-    else:
-        iam_client.list_roles.return_value = result
-
-    boto = get_boto_client(monkeypatch, iam_client)
-
-    res = aws.get_account_id(REGION)
-
-    if fail:
-        assert res is None
-    else:
-        assert res == result['Roles'][0]['Arn'].split(':')[4]
-
-    boto.assert_called_with('iam', region_name=REGION)
-
-
 def test_aws_get_apps_from_entities(monkeypatch):
     instances = [{'application_id': 'app-1'}, {}]
 

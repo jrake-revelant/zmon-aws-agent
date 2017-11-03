@@ -107,14 +107,20 @@ def main():
             entity_extras[k] = v
 
     # 1. Determine region
+    metadata = {}
+    logger.info('Trying to figure out metadata...')
+    try:
+        # see http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-identity-documents.html
+        metadata = requests.get('http://169.254.169.254/latest/dynamic/instance-identity/document', timeout=2).json()
+    except Exception:
+        logger.exception('metadata cannot be fetched from instance meta-data!')
+        raise
+
     if not args.region:
-        logger.info('Trying to figure out region..')
-        try:
-            response = requests.get('http://169.254.169.254/latest/meta-data/placement/availability-zone', timeout=2)
-        except:
-            logger.exception('Region was not specified as a parameter and can not be fetched from instance meta-data!')
-            raise
-        region = response.text[:-1]
+        region = metadata.get('region', None)
+        if not region:
+            logger.error('Region was not specified as a parameter and can not be fetched from instance meta-data!')
+            raise Exception('Region was not specified as a parameter and can not be fetched from instance meta-data!')
     else:
         region = args.region
 
@@ -125,7 +131,7 @@ def main():
     logger.info('Reading DNS data for hosted zones')
     aws.populate_dns_data()
 
-    aws_account_id = aws.get_account_id(region)
+    aws_account_id = metadata.get('accountId', None)
     infrastructure_account = 'aws:{}'.format(aws_account_id) if aws_account_id else None
 
     if not infrastructure_account:
