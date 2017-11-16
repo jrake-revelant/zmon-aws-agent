@@ -123,6 +123,7 @@ def main():
             raise Exception('Region was not specified as a parameter and can not be fetched from instance meta-data!')
     else:
         region = args.region
+        metadata.update({'region': args.region})
 
     logger.info('Using region: {}'.format(region))
 
