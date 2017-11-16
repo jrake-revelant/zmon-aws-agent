@@ -331,7 +331,7 @@ def test_aws_get_running_apps(monkeypatch):
 
     boto = get_boto_client(monkeypatch, ec2_client)
 
-    res = aws.get_running_apps(REGION)
+    res = aws.get_running_apps({'region': REGION, 'availabilityZone': REGION+"a"})
 
     assert res == result
 
@@ -358,7 +358,7 @@ def test_aws_get_running_apps_existing(monkeypatch):
 
     get_boto_client(monkeypatch, ec2_client)
 
-    res = aws.get_running_apps(REGION)
+    res = aws.get_running_apps({'region': REGION, 'availabilityZone': REGION+"a"})
     assert res == result
 
     calls = [call(InstanceId='ins-1', Attribute='userData'), call(InstanceId='ins-2', Attribute='userData')]

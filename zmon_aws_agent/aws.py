@@ -176,7 +176,8 @@ def get_instance_events(aws_client, instance):
     return []
 
 
-def get_running_apps(region, existing_entities=None):
+def get_running_apps(metadata, existing_entities=None):
+    region = metadata.get('region', 'unknown')
     aws_client = boto3.client('ec2', region_name=region)
 
     paginator = aws_client.get_paginator('describe_instances')
@@ -228,6 +229,7 @@ def get_running_apps(region, existing_entities=None):
                     'type': 'instance',
                     'created_by': 'agent',
                     'region': region,
+                    'availability_zone': metadata.get('availabilityZone', 'unknown'),
                     'ip': i['PrivateIpAddress'],
                     'host': i['PrivateIpAddress'],
                     'instance_type': i['InstanceType'],

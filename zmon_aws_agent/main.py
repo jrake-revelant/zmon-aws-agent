@@ -146,7 +146,7 @@ def main():
     entities = zmon_client.get_entities(query)
 
     # 3. Get running apps
-    apps = aws.get_running_apps(region, entities)
+    apps = aws.get_running_apps(metadata, entities)
 
     elbs = []
     scaling_groups = []

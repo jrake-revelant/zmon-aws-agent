@@ -271,7 +271,7 @@ def get_apps():
             'id': 'app-1-stack-1-1.0-{}[{}:{}]'.format(get_hash('192.168.20.16'), ACCOUNT, REGION),
             'type': 'instance', 'created_by': 'agent', 'region': REGION, 'infrastructure_account': 'aws:1234',
             'ip': '192.168.20.16', 'host': '192.168.20.16', 'public_ip': '194.194.20.16',
-            'instance_type': 't2.medium', 'aws_id': 'ins-1',
+            'instance_type': 't2.medium', 'aws_id': 'ins-1', 'availability_zone': REGION+"a",
             'state_reason': 'state', 'stack': 'stack-1', 'stack_version': 'stack-1-1.0',
             'resource_id': 'cd-app', 'application_id': 'app-1', 'application_version': '1.0',
             'source': 'registry/stups/zmon-aws-agent:cd81', 'source_base': 'registry/stups/zmon-aws-agent',
@@ -285,13 +285,13 @@ def get_apps():
         {
             'id': 'ins-2-{}[{}:{}]'.format(get_hash('192.168.20.16'), ACCOUNT, REGION),
             'type': 'instance', 'created_by': 'agent', 'region': REGION, 'infrastructure_account': 'aws:1234',
-            'ip': '192.168.20.16', 'host': '192.168.20.16', 'spot_instance': False,
+            'ip': '192.168.20.16', 'host': '192.168.20.16', 'spot_instance': False, 'availability_zone': REGION+"a",
             'instance_type': 't2.medium', 'aws_id': 'ins-2', 'block_devices': {}, 'image': {},
         },
         {
             'id': 'myname-{}[{}:{}]'.format(get_hash('192.168.20.17'), ACCOUNT, REGION),
             'type': 'instance', 'created_by': 'agent', 'region': REGION, 'infrastructure_account': 'aws:1234',
-            'ip': '192.168.20.17', 'host': '192.168.20.17', 'spot_instance': False,
+            'ip': '192.168.20.17', 'host': '192.168.20.17', 'spot_instance': False, 'availability_zone': REGION+"a",
             'instance_type': 't2.medium', 'aws_id': 'ins-3', 'name': 'myname', 'block_devices': {}, 'image': {},
         }
     ]
@@ -366,7 +366,7 @@ def get_apps_existing():
             'id': 'app-1-stack-1-1.0-{}[{}:{}]'.format(get_hash('192.168.20.16'), ACCOUNT, REGION),
             'type': 'instance', 'created_by': 'agent', 'region': REGION, 'infrastructure_account': 'aws:1234',
             'ip': '192.168.20.16', 'host': '192.168.20.16', 'public_ip': '194.194.20.16',
-            'instance_type': 't2.medium', 'aws_id': 'ins-1',
+            'instance_type': 't2.medium', 'aws_id': 'ins-1', 'availability_zone': REGION+"a",
             'state_reason': 'state', 'stack': 'stack-1', 'stack_version': 'stack-1-1.0',
             'resource_id': 'cd-app', 'application_id': 'app-1', 'application_version': '1.0',
             'source': 'registry/stups/zmon-aws-agent:cd81', 'source_base': 'registry/stups/zmon-aws-agent',
@@ -376,13 +376,13 @@ def get_apps_existing():
         {
             'id': 'ins-2-{}[{}:{}]'.format(get_hash('192.168.20.16'), ACCOUNT, REGION),
             'type': 'instance', 'created_by': 'agent', 'region': REGION, 'infrastructure_account': 'aws:1234',
-            'ip': '192.168.20.16', 'host': '192.168.20.16', 'spot_instance': False,
+            'ip': '192.168.20.16', 'host': '192.168.20.16', 'spot_instance': False, 'availability_zone': REGION+"a",
             'instance_type': 't2.medium', 'aws_id': 'ins-2', 'block_devices': {}, 'image': {},
         },
         {
             'id': 'myname-{}[{}:{}]'.format(get_hash('192.168.20.17'), ACCOUNT, REGION),
             'type': 'instance', 'created_by': 'agent', 'region': REGION, 'infrastructure_account': 'aws:1234',
-            'ip': '192.168.20.17', 'host': '192.168.20.17', 'spot_instance': False,
+            'ip': '192.168.20.17', 'host': '192.168.20.17', 'spot_instance': False, 'availability_zone': REGION+"a",
             'instance_type': 't2.medium', 'aws_id': 'ins-3', 'name': 'myname', 'block_devices': {}, 'image': {},
         }
     ]
