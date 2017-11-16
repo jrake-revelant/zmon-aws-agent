@@ -44,7 +44,7 @@ def remove_missing_entities(existing_ids, current_ids, zmon_client, json=False):
                 if not deleted:
                     logger.error('Failed to delete entity!')
                     error_count += 1
-            except:
+            except Exception:
                 logger.exception('Exception while deleting entity: {}'.format(entity_id))
                 error_count += 1
 
@@ -74,7 +74,7 @@ def add_new_entities(all_current_entities, existing_entities, zmon_client, json=
                 logger.info('Adding new {} entity with ID: {}'.format(entity['type'], entity['id']))
 
                 zmon_client.add_entity(entity)
-            except:
+            except Exception:
                 logger.exception('Failed to add entity: {}'.format(entity))
                 error_count += 1
 
@@ -227,7 +227,7 @@ def main():
         ia_entity['errors'] = {'delete_count': delete_error_count, 'add_count': add_error_count}
         try:
             zmon_client.add_entity(ia_entity)
-        except:
+        except Exception:
             logger.exception('Failed to add Local entity: {}'.format(ia_entity))
 
     types = {e['type']: len([t for t in new_entities if t['type'] == e['type']]) for e in new_entities}
